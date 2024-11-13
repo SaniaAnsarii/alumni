@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Header from './Header';
 import { checkValidData } from '../utils/validate';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [isSignUpForm, setIsSignUpForm] = useState(true);
   const [showWelcome, setShowWelcome] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const navigate = useNavigate();
 
   // Validation references
   const email = useRef(null);
@@ -23,8 +26,15 @@ const Login = () => {
     if (email.current && password.current) {
       const message = checkValidData(email.current.value, password.current.value);
       setErrorMessage(message);
+
+      // If validation is successful, navigate to a different route
+      if (!message) {
+        navigate('/dashboard'); // Step 3: Use navigate to redirect (change '/dashboard' to your desired route)
+      }
     }
   };
+
+  
 
   // Animation
   useEffect(() => {
@@ -49,7 +59,7 @@ const Login = () => {
         />
 
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#485563] to-[#29323c] opacity-70"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#10171f] to-[#081b30] opacity-70"></div>
 
         {/* Welcome Message */}
         {showWelcome && (
@@ -67,7 +77,7 @@ const Login = () => {
           <div className="absolute text-center w-full text-white transition-opacity duration-1000 opacity-100">
             <form
               onSubmit={handleSubmit}
-              className="w-3/12 mt-10 p-8 bg-white bg-opacity-70 rounded-lg mx-auto"
+              className="w-3/12 mt-10 p-8 bg-[#ecdede78]  backdrop-blur-sm bg-opacity-70 rounded-lg mx-auto"
             >
               <h2 className="font-bold text-2xl mb-4">{isSignUpForm ? "Sign Up" : "Sign In"}</h2>
               <select
