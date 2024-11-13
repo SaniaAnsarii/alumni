@@ -14,47 +14,49 @@ import Scholarship from './Scholarship'
 const Body = () => {
     const appRouter = createBrowserRouter([
         {
-            path: "/",
-            element: <Login />
+          path: "/",
+          element: <Login />
         },
         {
-            path:"dashboard",
-            element:<Dashboard/>
-        },
-        {
-           path:"achivements",
-           element:<Achievements/>
-        },
-        {
-          path:"directory",
-          element:<Directory/>
-        },
-        {
-            path:"success",
-            element:<Success/>
-        },
-        {
-            path:"feedback",
-            element:<Feedback/>
-        },
-        {
-            path:"jobs",
-            element:<Jobs/>
-        },
-        {
-            path:"events",
-            element:<Events/>
-        },
-        {
-            path:"project",
-            element:<Project/>
-        },
-        {
-            path:"scholarship",
-            element:<Scholarship/>
+          path: "dashboard",
+          element: <Dashboard />,
+          children: [
+            {
+              path: "achievements",
+              element: <Achievements />
+            },
+            {
+              path: "directory",
+              element: <Directory />
+            },
+            {
+              path: "success",
+              element: <Success />
+            },
+            {
+              path: "feedback",
+              element: <Feedback />
+            },
+            {
+              path: "jobs",
+              element: <Jobs />
+            },
+            {
+              path: "events",
+              element: <Events />
+            },
+            {
+              path: "project",
+              element: <Project />
+            },
+            {
+              path: "scholarship",
+              element: <Scholarship />
+            }
+          ]
         }
-
-    ]);
+      ]);
+      
 
     return (
         <div>
