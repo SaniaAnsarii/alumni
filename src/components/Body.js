@@ -18,42 +18,40 @@ const Body = () => {
           element: <Login />
         },
         {
-          path: "dashboard",
+          path: "/directory",
+          element: <Directory />
+        },
+        {
+          path: "/dashboard",
           element: <Dashboard />,
-          children: [
-            {
-              path: "achievements",
-              element: <Achievements />
-            },
-            {
-              path: "directory",
-              element: <Directory />
-            },
-            {
-              path: "success",
-              element: <Success />
-            },
-            {
-              path: "feedback",
-              element: <Feedback />
-            },
-            {
-              path: "jobs",
-              element: <Jobs />
-            },
-            {
-              path: "events",
-              element: <Events />
-            },
-            {
-              path: "project",
-              element: <Project />
-            },
-            {
-              path: "scholarship",
-              element: <Scholarship />
-            }
-          ]
+        },
+        {
+          path: "/achievements",
+          element: <Achievements />
+        },
+        {
+          path: "/success",
+          element: <Success />
+        },
+        {
+          path: "/feedback",
+          element: <Feedback />
+        },
+        {
+          path: "/jobs",
+          element: <Jobs />
+        },
+        {
+          path: "/events",
+          element: <Events />
+        },
+        {
+          path: "/project",
+          element: <Project />
+        },
+        {
+          path: "/scholarship",
+          element: <Scholarship />
         }
       ]);
       
