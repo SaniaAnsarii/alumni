@@ -25,6 +25,7 @@ const Body = () => {
           path: "/dashboard",
           element: <Dashboard />,
         },
+
         {
           path: "/achievements",
           element: <Achievements />
@@ -53,6 +54,10 @@ const Body = () => {
           path: "/scholarship",
           element: <Scholarship />
         }
+
+            
+        
+
       ]);
       
 
