@@ -1,9 +1,9 @@
 import React from 'react'
-
+import Navbar from './Navbar'
 const Dashboard = () => {
   return (
-    <div>Dashboard
-        <h1>hiihiihihihihihiihihi</h1>
+    <div>
+        <Navbar/>
     </div>
   )
 }
