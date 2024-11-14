@@ -1,7 +1,6 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './Login' // Ensure Login is imported correctly
-import Dashboard from './Dashboard'
 import Achievements from './Achievements'
 import Directory from './Directory'
 import Success from './Success'
@@ -11,6 +10,7 @@ import Events from './Events'
 import Project from './Project'
 import Scholarship from './Scholarship'
 import Gallery from './Gallery'
+import Home from './Home'
 
 const Body = () => {
     const appRouter = createBrowserRouter([
@@ -23,8 +23,8 @@ const Body = () => {
           element: <Directory />
         },
         {
-          path: "/dashboard",
-          element: <Dashboard />,
+          path: "/home",
+          element: <Home />,
         },
 
         {

@@ -29,7 +29,7 @@ const Login = () => {
 
       // If validation is successful, navigate to a different route
       if (!message) {
-        navigate('/dashboard'); // Step 3: Use navigate to redirect (change '/dashboard' to your desired route)
+        navigate('/home'); // Step 3: Use navigate to redirect (change '/dashboard' to your desired route)
       }
     }
   };
