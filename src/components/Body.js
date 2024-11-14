@@ -10,6 +10,7 @@ import Jobs from './Jobs'
 import Events from './Events'
 import Project from './Project'
 import Scholarship from './Scholarship'
+import Gallery from './Gallery'
 
 const Body = () => {
     const appRouter = createBrowserRouter([
@@ -53,6 +54,10 @@ const Body = () => {
         {
           path: "/scholarship",
           element: <Scholarship />
+        },
+        {
+          path:"/gallery",
+          element:<Gallery/>
         }
 
             

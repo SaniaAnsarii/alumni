@@ -1,6 +1,6 @@
-import {  Tooltip } from '@radix-ui/themes';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
 
 const Navbar = () => {
   const [openDropdown, setOpenDropdown] = useState('');
@@ -27,32 +27,31 @@ const Navbar = () => {
           </li>
 
           {/* Alumni dropdown */}
-          <Tooltip content={<div
+          <li className="relative">
+            <button
+              className="flex items-center hover:text-gray-400 focus:outline-none"
+              onClick={() => toggleDropdown('alumni')}
+              onBlur={handleMouseLeave}
+            >
+              Alumni
+              {openDropdown === 'alumni' ? (
+                <ChevronUpIcon className="w-5 h-5 ml-1" />
+              ) : (
+                <ChevronDownIcon className="w-5 h-5 ml-1" />
+              )}
+            </button>
+            {openDropdown === 'alumni' && (
+              <div
                 className="absolute bg-gray-700 mt-2 rounded shadow-lg py-2"
-                onMouseLeave={handleMouseLeave} // Closes when mouse leaves dropdown area
+                onMouseLeave={handleMouseLeave}
               >
                 <Link to="/achievements" className="block px-4 py-2 hover:bg-gray-600">Achievements</Link>
                 <Link to="/directory" className="block px-4 py-2 hover:bg-gray-600">Alumni Directory</Link>
                 <Link to="/success" className="block px-4 py-2 hover:bg-gray-600">Success Story</Link>
                 <Link to="/feedback" className="block px-4 py-2 hover:bg-gray-600">Feedbacks and Surveys</Link>
-              </div>}
-              style={{bottom:"200px", display:"relative"}}
-              >
-	
-          <li className="relative">
-            <button
-              className="hover:text-gray-400 focus:outline-none"
-              onClick={() => toggleDropdown('alumni')}
-              // onBlur={handleMouseLeave} // Closes dropdown when focus is lost
-            >
-              Alumni
-            </button>
-            {/* {openDropdown === 'alumni' && (
-              
-            )} */}
+              </div>
+            )}
           </li>
-</Tooltip>
-
 
           <li>
             <Link to="/jobs" className="hover:text-gray-400">Jobs</Link>
@@ -64,11 +63,16 @@ const Navbar = () => {
           {/* Donation dropdown */}
           <li className="relative">
             <button
-              className="hover:text-gray-400 focus:outline-none"
+              className="flex items-center hover:text-gray-400 focus:outline-none"
               onClick={() => toggleDropdown('donation')}
               onBlur={handleMouseLeave}
             >
               Donation
+              {openDropdown === 'donation' ? (
+                <ChevronUpIcon className="w-5 h-5 ml-1" />
+              ) : (
+                <ChevronDownIcon className="w-5 h-5 ml-1" />
+              )}
             </button>
             {openDropdown === 'donation' && (
               <div
