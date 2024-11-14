@@ -11,11 +11,16 @@ import Project from './Project'
 import Scholarship from './Scholarship'
 import Gallery from './Gallery'
 import Home from './Home'
+import Welcome from './Welcome'
 
 const Body = () => {
     const appRouter = createBrowserRouter([
+      {
+        path:"/",
+        element:<Welcome/>
+      },
         {
-          path: "/",
+          path: "/login",
           element: <Login />
         },
         {
