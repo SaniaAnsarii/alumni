@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
+import { Link, useNavigate } from 'react-router-dom';
+import { ChevronDownIcon, ChevronUpIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid';
+import { UserCircleIcon } from '@heroicons/react/24/outline';
 
 const Navbar = () => {
   const [openDropdown, setOpenDropdown] = useState('');
+  const navigate = useNavigate();
 
   const toggleDropdown = (dropdown) => {
     setOpenDropdown((prev) => (prev === dropdown ? '' : dropdown));
@@ -15,44 +17,28 @@ const Navbar = () => {
     <nav className="bg-gray-800 text-white px-8 py-4">
       <div className="flex justify-between items-center">
         {/* Logo */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 cursor-pointer" onClick={() => navigate('/home')}>
           <img className="w-12" src="https://abgec.in/assets/images/gecbwobg.png" alt="logo" />
           <div className="text-xl font-bold text-white">Alumni Association</div>
         </div>
 
         {/* Main navigation items */}
-        <ul className="flex space-x-6">
+        <ul className="flex items-center space-x-6">
+          {/* Home Button */}
+          <li>
+            <button
+              onClick={() => navigate('/home')}
+              className="hover:text-gray-400 focus:outline-none"
+            >
+              Home
+            </button>
+          </li>
           <li>
             <Link to="/gallery" className="hover:text-gray-400">Gallery</Link>
           </li>
-
-          {/* Alumni dropdown */}
-          <li className="relative">
-            <button
-              className="flex items-center hover:text-gray-400 focus:outline-none"
-              onClick={() => toggleDropdown('alumni')}
-              onBlur={handleMouseLeave}
-            >
-              Alumni
-              {openDropdown === 'alumni' ? (
-                <ChevronUpIcon className="w-5 h-5 ml-1" />
-              ) : (
-                <ChevronDownIcon className="w-5 h-5 ml-1" />
-              )}
-            </button>
-            {openDropdown === 'alumni' && (
-              <div
-                className="absolute bg-gray-700 mt-2 rounded shadow-lg py-2"
-                onMouseLeave={handleMouseLeave}
-              >
-                <Link to="/achievements" className="block px-4 py-2 hover:bg-gray-600">Achievements</Link>
-                <Link to="/directory" className="block px-4 py-2 hover:bg-gray-600">Alumni Directory</Link>
-                <Link to="/success" className="block px-4 py-2 hover:bg-gray-600">Success Story</Link>
-                <Link to="/feedback" className="block px-4 py-2 hover:bg-gray-600">Feedbacks and Surveys</Link>
-              </div>
-            )}
+          <li>
+            <Link to="/Alumnis" className="hover:text-gray-400">Alumnis</Link>
           </li>
-
           <li>
             <Link to="/jobs" className="hover:text-gray-400">Jobs</Link>
           </li>
@@ -60,7 +46,7 @@ const Navbar = () => {
             <Link to="/events" className="hover:text-gray-400">Events</Link>
           </li>
 
-          {/* Donation dropdown */}
+          {/* Donation Dropdown */}
           <li className="relative">
             <button
               className="flex items-center hover:text-gray-400 focus:outline-none"
@@ -83,6 +69,28 @@ const Navbar = () => {
                 <Link to="/scholarship" className="block px-4 py-2 hover:bg-gray-600">Scholarship</Link>
               </div>
             )}
+          </li>
+
+          {/* User Profile */}
+          <li>
+            <button
+              onClick={() => navigate('/user')}
+              className="hover:text-gray-400 focus:outline-none flex items-center space-x-2"
+            >
+              <UserCircleIcon className="w-6 h-6" />
+              <span>Profile</span>
+            </button>
+          </li>
+
+          {/* Logout */}
+          <li>
+            <button
+              onClick={() => navigate('/login')}
+              className="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg flex items-center space-x-2 text-white"
+            >
+              <ArrowRightOnRectangleIcon className="w-6 h-6" />
+              <span>Log Out</span>
+            </button>
           </li>
         </ul>
       </div>
