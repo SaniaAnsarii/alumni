@@ -1,8 +1,9 @@
 import React from 'react'
+import Navbar from './Navbar'
 
 const Directory = () => {
   return (
-    <div>Directory</div>
+    <div>  <Navbar/></div>
   )
 }
 

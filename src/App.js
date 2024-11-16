@@ -16,8 +16,9 @@ import Project from './components/Project';
 import Scholarship from './components/Scholarship';
 import Gallery from './components/Gallery';
 import Home from './components/Home';
-import Alumnis from './components/Alumnis';
+import Alums from './components/Alums';
 import User from './components/User';
+import Alumni from './components/Alumni';
 
 const App = () => {
   const [appearance, setAppearance] = useState('light');
@@ -49,7 +50,8 @@ const App = () => {
           <Route path="/project" element={<Project />} />
           <Route path="/scholarship" element={<Scholarship />} />
           <Route path="/gallery" element={<Gallery />} />
-          <Route path='/alumnis' element={<Alumnis/>}/>
+          <Route path='/alums' element={<Alums/>}/>
+          <Route path='/alumni' element={<Alumni/>}/>
         </Routes>
 
         {/* Render toggle button only if the current route is not in the excluded routes */}

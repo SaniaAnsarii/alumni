@@ -7,7 +7,7 @@ const Home = () => {
         <Navbar/>
 
         <div>
-          <img src="../img/gecb2.png" alt="" />
+          
         </div>
     </div>
   )

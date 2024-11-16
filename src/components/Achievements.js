@@ -1,8 +1,11 @@
 import React from 'react'
+import Navbar from './Navbar'
 
 const achievements = () => {
   return (
-    <div>achievements</div>
+    <div>
+      <Navbar/>
+    </div>
   )
 }
 
