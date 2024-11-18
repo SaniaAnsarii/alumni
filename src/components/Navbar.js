@@ -51,7 +51,7 @@ const Navbar = () => {
             <button
               className="flex items-center hover:text-gray-400 focus:outline-none"
               onClick={() => toggleDropdown('donation')}
-              onBlur={handleMouseLeave}
+              // onBlur={handleMouseLeave}
             >
               Donation
               {openDropdown === 'donation' ? (
@@ -62,14 +62,14 @@ const Navbar = () => {
             </button>
             {openDropdown === 'donation' && (
               <div
-                className="absolute bg-gray-700 mt-2 rounded shadow-lg py-2"
+                className="absolute bg-gray-700 mt-2 rounded shadow-lg py-2 z-50"
                 onMouseLeave={handleMouseLeave}
               >
                 <Link to="/project" className="block px-4 py-2 hover:bg-gray-600">Project</Link>
                 <Link to="/scholarship" className="block px-4 py-2 hover:bg-gray-600">Scholarship</Link>
               </div>
             )}
-          </li>
+          </li>   
 
           {/* User Profile */}
           <li>
