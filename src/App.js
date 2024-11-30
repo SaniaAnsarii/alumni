@@ -4,6 +4,7 @@ import { Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
 import { SunIcon, MoonIcon } from '@heroicons/react/24/solid';
 
+// import Welcome from './components/Welcome';
 import Login from './components/Login';
 import Achievements from './components/Achievements';
 import Directory from './components/Directory';
@@ -17,7 +18,7 @@ import Gallery from './components/Gallery';
 import Home from './components/Home';
 import Alums from './components/Alums';
 import User from './components/User';
-import Alumni from './components/Alumni';
+// import Alumni from './components/Alumni';
 import AlumiDetails from './components/AlumiDetails';
 
 const App = () => {
@@ -48,6 +49,8 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          {/* <Route path="/" element={<Welcome />} /> */}
+          <Route path="/login" element={<Login />} />
           <Route path="/directory" element={<Directory />} />
           <Route path="/achievements" element={<Achievements />} />
           <Route path="/success" element={<Success />} />
@@ -57,7 +60,7 @@ const App = () => {
           <Route path="/project" element={<Project />} />
           <Route path="/scholarship" element={<Scholarship />} />
           <Route path="/gallery" element={<Gallery />} />
-          <Route path='/alumni' element={<Alums/>}/>
+          <Route path='/alums' element={<Alums/>}/>
           <Route path='/alumni/:alumniId' element={<AlumiDetails />} />
         </Routes>
 

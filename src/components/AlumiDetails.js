@@ -32,7 +32,14 @@ const AlumiDetails = () => {
           <img
             src={alum.imageUrl}
             alt={alum.name}
-            className=" w-full object-cover rounded-md mb-4"
+            className="w-full object-cover rounded-md mb-4"
+            style={{
+              maxHeight: "400px",
+              height: "auto",
+              width: "100%",
+              objectFit: "cover",
+            }}
+            loading="lazy" // Lazy loading for performance optimization
           />
           <h2 className="text-2xl font-bold">{alum.name}</h2>
           <p className="text-gray-500">{alum.branch}</p>
