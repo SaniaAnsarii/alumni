@@ -4,7 +4,6 @@ import alumniList from "../object/alumniList";
 import Navbar from "./Navbar";
 
 const AlumiDetails = () => {
-
   const { alumniId } = useParams();
 
   // Find the alumni by ID
@@ -33,13 +32,7 @@ const AlumiDetails = () => {
           <img
             src={alum.imageUrl}
             alt={alum.name}
-            className="w-full object-cover rounded-md mb-4"
-            style={{
-              maxHeight: "400px",
-              height: "auto",
-              width: "100%",
-              objectFit: "cover",
-            }}
+            className="w-full max-h-[400px] object-cover rounded-md mb-4"
             loading="lazy" // Lazy loading for performance optimization
           />
           <h2 className="text-2xl font-bold">{alum.name}</h2>

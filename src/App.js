@@ -6,9 +6,9 @@ import { SunIcon, MoonIcon } from '@heroicons/react/24/solid';
 
 // import Welcome from './components/Welcome';
 import Login from './components/Login';
-import Achievements from './components/Achievements';
+// import Achievements from './components/Achievements';
 import Directory from './components/Directory';
-import Success from './components/Success';
+// import Success from './components/Success';
 import Feedback from './components/Feedback';
 import Jobs from './components/Jobs';
 import Events from './components/Events';
@@ -52,8 +52,8 @@ const App = () => {
           {/* <Route path="/" element={<Welcome />} /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/directory" element={<Directory />} />
-          <Route path="/achievements" element={<Achievements />} />
-          <Route path="/success" element={<Success />} />
+          {/* <Route path="/achievements" element={<Achievements />} /> */}
+          {/* <Route path="/success" element={<Success />} /> */}
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/events" element={<Events />} />
