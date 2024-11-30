@@ -24,7 +24,10 @@ const Login = () => {
 
     if (email.current && password.current) {
       // Validate input fields
-      const message = checkValidData(email.current.value, password.current.value);
+      const message = checkValidData(
+        email.current.value,
+        password.current.value
+      );
       setErrorMessage(message);
 
       // If validation passes, simulate token generation and storage
@@ -60,12 +63,14 @@ const Login = () => {
             onSubmit={handleSubmit}
             className="w-3/12 mt-10 p-8 bg-[#ecdede78] backdrop-blur-sm bg-opacity-70 rounded-lg mx-auto"
           >
-            <h2 className="font-bold text-2xl mb-4">{isSignUpForm ? "Sign Up" : "Sign In"}</h2>
+            <h2 className="font-bold text-2xl mb-4">
+              {isSignUpForm ? "Sign Up" : "Sign In"}
+            </h2>
 
             {/* User Type Dropdown */}
             <select
               id="userType"
-              className="w-full my-2 p-2 bg-white text-black rounded"
+              className="w-full my-2 p-2 bg-white text-black rounded relative z-10"
               defaultValue=""
               required
             >
