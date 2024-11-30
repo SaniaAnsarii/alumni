@@ -58,7 +58,7 @@ const Login = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-[#10171f] to-[#081b30] opacity-70"></div>
 
         {/* Main Content */}
-        <div className="absolute text-center w-full text-white transition-opacity duration-1000 opacity-100">
+        <div className="absolute z-20 text-center w-full text-white transition-opacity duration-1000 opacity-100">
           <form
             onSubmit={handleSubmit}
             className="w-3/12 mt-10 p-8 bg-[#ecdede78] backdrop-blur-sm bg-opacity-70 rounded-lg mx-auto"
@@ -68,29 +68,18 @@ const Login = () => {
             </h2>
 
             {/* User Type Dropdown */}
-            <h6 className="text-left text-lg font-semibold my-2">Sign Up As :</h6>
-<div className="flex gap-2 items-start my-2">
-  <label className="flex items-center mb-2">
-    <input
-      type="radio"
-      name="userType"
-      value="alumni"
-      className="mr-2"
-      required
-    />
-    Alumni
-  </label>
-  <label className="flex items-center">
-    <input
-      type="radio"
-      name="userType"
-      value="student"
-      className="mr-2"
-      required
-    />
-    Student
-  </label>
-</div>
+            <select
+              id="userType"
+              className="w-full my-2 p-2 bg-white text-black rounded"
+              defaultValue=""
+              required
+            >
+              <option value="" disabled hidden>
+                Select Sign Up As
+              </option>
+              <option value="alumni">Alumni</option>
+              <option value="student">Student</option>
+            </select>
 
             {/* Sign-Up Specific Fields */}
             {isSignUpForm && (
@@ -120,7 +109,7 @@ const Login = () => {
                   required
                 />
                 <div className="flex items-center gap-4 my-2">
-                  Gender : 
+                  Gender :
                   <label className="flex items-center">
                     <input
                       type="radio"
