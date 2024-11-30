@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import { Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
 import { SunIcon, MoonIcon } from '@heroicons/react/24/solid';
@@ -24,6 +24,7 @@ const App = () => {
   const [appearance, setAppearance] = useState('light');
   const location = useLocation();
 
+
   // Toggle theme function
   const toggleTheme = () => {
     setAppearance((prevAppearance) => (prevAppearance === 'light' ? 'dark' : 'light'));
@@ -39,7 +40,14 @@ const App = () => {
         <Routes>
           <Route path='/user' element={<User/>}/>
           <Route path="/" element={<Welcome />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              <ProtectedRoute redirectTo="/home">
+                <Login />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/directory" element={<Directory />} />
           <Route path="/home" element={<Home />} />
           <Route path="/achievements" element={<Achievements />} />
@@ -73,3 +81,9 @@ const App = () => {
 };
 
 export default App;
+
+export const ProtectedRoute = ({ children, redirectTo }) => {
+  const loginToken = localStorage.getItem("authToken");
+  return loginToken ? <Navigate to={redirectTo} replace /> : children;
+};
+

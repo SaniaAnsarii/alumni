@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Header from './Header'; // Keep this if needed, otherwise remove.
-import { checkValidData } from '../utils/validate'; // Keep this if validation is implemented.
+import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "./Header"; // Keep this if needed, otherwise remove.
+import { checkValidData } from "../utils/validate"; // Keep this if validation is implemented.
 
 const Login = () => {
   const [isSignUpForm, setIsSignUpForm] = useState(true);
@@ -23,12 +23,19 @@ const Login = () => {
     e.preventDefault();
 
     if (email.current && password.current) {
+      // Validate input fields
       const message = checkValidData(email.current.value, password.current.value);
       setErrorMessage(message);
 
-      // If validation passes, navigate to home
+      // If validation passes, simulate token generation and storage
       if (!message) {
-        navigate('/home');
+        const simulatedToken = "fake-token-12345"; // Simulated token
+
+        // Store the token in localStorage
+        localStorage.setItem("authToken", simulatedToken);
+
+        // Navigate to the home page
+        navigate("/home");
       }
     }
   };
@@ -53,24 +60,23 @@ const Login = () => {
             onSubmit={handleSubmit}
             className="w-3/12 mt-10 p-8 bg-[#ecdede78] backdrop-blur-sm bg-opacity-70 rounded-lg mx-auto"
           >
-            <h2 className="font-bold text-2xl mb-4">{isSignUpForm ? 'Sign Up' : 'Sign In'}</h2>
+            <h2 className="font-bold text-2xl mb-4">{isSignUpForm ? "Sign Up" : "Sign In"}</h2>
 
             {/* User Type Dropdown */}
             <select
-  id="userType"
-  className="w-full my-2 p-2 bg-white text-black rounded"
-  defaultValue="" // Ensures initial selection is the placeholder
-  required // Makes this field mandatory
->
-  <option value="" disabled hidden>
-    Select Sign Up As
-  </option>
-  <option value="alumni">Alumni</option>
-  <option value="student">Student</option>
-</select>
+              id="userType"
+              className="w-full my-2 p-2 bg-white text-black rounded"
+              defaultValue=""
+              required
+            >
+              <option value="" disabled hidden>
+                Select Sign Up As
+              </option>
+              <option value="alumni">Alumni</option>
+              <option value="student">Student</option>
+            </select>
 
-
-            {/* Full Name, Batch, Department (Sign Up Only) */}
+            {/* Sign-Up Specific Fields */}
             {isSignUpForm && (
               <>
                 <input
@@ -91,16 +97,12 @@ const Login = () => {
                   className="w-full my-2 p-2 bg-white text-black rounded"
                   required
                 />
-
-                {/* Date of Birth */}
                 <input
                   type="date"
                   placeholder="Date of Birth"
                   className="w-full my-2 p-2 bg-white text-black rounded"
                   required
                 />
-
-                {/* Gender Selection */}
                 <div className="flex items-center justify-between my-2">
                   <label className="flex items-center">
                     <input
@@ -152,14 +154,14 @@ const Login = () => {
               type="submit"
               className="p-2 my-4 bg-red-700 w-full rounded-lg text-white font-semibold"
             >
-              {isSignUpForm ? 'Sign Up' : 'Sign In'}
+              {isSignUpForm ? "Sign Up" : "Sign In"}
             </button>
 
             {/* Toggle Sign In/Sign Up */}
             <p className="py-4 cursor-pointer" onClick={toggleSignIn}>
               {isSignUpForm
-                ? 'Already registered? Sign In Now'
-                : 'New to this? Sign Up Now'}
+                ? "Already registered? Sign In Now"
+                : "New to this? Sign Up Now"}
             </p>
           </form>
         </div>
