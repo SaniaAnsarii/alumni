@@ -4,6 +4,7 @@ import alumniList from "../object/alumniList";
 import Navbar from "./Navbar";
 
 const AlumiDetails = () => {
+  .gitignore mein /backend/node_modules
   const { alumniId } = useParams();
 
   // Find the alumni by ID
