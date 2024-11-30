@@ -5,16 +5,16 @@ import Navbar from "./Navbar";
 const User = () => {
   const [editMode, setEditMode] = useState(null);
   const [profile, setProfile] = useState({
-    name: "John Doe",
+    name: "Sania naz ansari",
     role: "Student",
-    batch: "2022-2025",
+    batch: "2021-2025",
     profilePhoto: "https://via.placeholder.com/150",
   });
   const [skills, setSkills] = useState(["Frontend Developer"]);
   const [info, setInfo] = useState({
-    email: "johndoe@example.com",
-    dob: "2000-01-01",
-    gender: "Male",
+    email: "ansarisania789@gmail.com",
+    dob: "2004-01-01",
+    gender: "Female",
   });
   const [connectHandles, setConnectHandles] = useState({
     instagram: "",
@@ -22,7 +22,7 @@ const User = () => {
     linkedin: "",
     github: "",
   });
-  const [education, setEducation] = useState("High School Name, City");
+  const [education, setEducation] = useState("GEC, Bilaspur");
   const [experience, setExperience] = useState("Intern at XYZ Company");
 
   const handleEdit = (type) => setEditMode(type);
