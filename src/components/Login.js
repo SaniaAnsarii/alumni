@@ -35,7 +35,7 @@ const Login = () => {
         localStorage.setItem("authToken", simulatedToken);
 
         // Navigate to the home page
-        navigate("/home");
+        navigate("/");
       }
     }
   };

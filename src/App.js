@@ -4,7 +4,6 @@ import { Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
 import { SunIcon, MoonIcon } from '@heroicons/react/24/solid';
 
-import Welcome from './components/Welcome';
 import Login from './components/Login';
 import Achievements from './components/Achievements';
 import Directory from './components/Directory';
@@ -19,6 +18,7 @@ import Home from './components/Home';
 import Alums from './components/Alums';
 import User from './components/User';
 import Alumni from './components/Alumni';
+import AlumiDetails from './components/AlumiDetails';
 
 const App = () => {
   const [appearance, setAppearance] = useState('light');
@@ -39,17 +39,16 @@ const App = () => {
         {/* Define all routes */}
         <Routes>
           <Route path='/user' element={<User/>}/>
-          <Route path="/" element={<Welcome />} />
+          <Route path="/" element={<Home />} />
           <Route
             path="/login"
             element={
-              <ProtectedRoute redirectTo="/home">
+              <ProtectedRoute redirectTo="/">
                 <Login />
               </ProtectedRoute>
             }
           />
           <Route path="/directory" element={<Directory />} />
-          <Route path="/home" element={<Home />} />
           <Route path="/achievements" element={<Achievements />} />
           <Route path="/success" element={<Success />} />
           <Route path="/feedback" element={<Feedback />} />
@@ -58,8 +57,8 @@ const App = () => {
           <Route path="/project" element={<Project />} />
           <Route path="/scholarship" element={<Scholarship />} />
           <Route path="/gallery" element={<Gallery />} />
-          <Route path='/alums' element={<Alums/>}/>
-          <Route path='/alumni' element={<Alumni/>}/>
+          <Route path='/alumni' element={<Alums/>}/>
+          <Route path='/alumni/:alumniId' element={<AlumiDetails />} />
         </Routes>
 
         {/* Render toggle button only if the current route is not in the excluded routes */}

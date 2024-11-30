@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Navbar from './Navbar';
-import alumniList from '../object/alumniList';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
+import alumniList from "../object/alumniList";
 
 const Alums = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -58,7 +58,7 @@ const Alums = () => {
                   <p className="text-gray-500">{alum.branch}</p>
                   <p className="text-gray-400">{alum.batch}</p>
                   <Link
-                    to="/alumni"
+                    to={`/alumni/${alum.id}`}
                     className="mt-4 inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600"
                   >
                     Go To Profile

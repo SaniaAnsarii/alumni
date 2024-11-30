@@ -21,11 +21,11 @@ const Navbar = () => {
 
   return (
     <nav className="bg-gray-800 text-white px-8 py-4">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col md:flex-row justify-between items-center">
         {/* Logo */}
         <div
           className="flex items-center space-x-3 cursor-pointer"
-          onClick={() => navigate("/home")}
+          onClick={() => navigate("/")}
         >
           <img
             className="w-12"
@@ -36,16 +36,16 @@ const Navbar = () => {
         </div>
 
         {/* Main navigation items */}
-        <ul className="flex items-center space-x-6">
+        <ul className="flex items-center gap-2 md:gap-4 text-xs md:text-base">
           {/* Home Button */}
-          <li>
-            {/* <button
-              onClick={() => navigate('/home')}
+          {/* <li>
+            <button
+              onClick={() => navigate('/')}
               className="hover:text-gray-400 focus:outline-none"
             >
               Home
-            </button> */}
-          </li>
+            </button>
+          </li> */}
           <li>
             <Link to="/gallery" className="hover:text-gray-400">
               Gallery
@@ -68,39 +68,43 @@ const Navbar = () => {
           </li>
 
           {/* Donation Dropdown */}
-          <li className="relative">
-            {loginToken && <button
-              className="flex items-center hover:text-gray-400 focus:outline-none"
-              onClick={() => toggleDropdown("donation")}
-              // onBlur={handleMouseLeave}
-            >
-              Donation
-              {openDropdown === "donation" ? (
-                <ChevronUpIcon className="w-5 h-5 ml-1" />
-              ) : (
-                <ChevronDownIcon className="w-5 h-5 ml-1" />
-              )}
-            </button>}
-            {openDropdown === "donation" && (
-              <div
-                className="absolute bg-gray-700 mt-2 rounded shadow-lg py-2 z-50"
-                onMouseLeave={handleMouseLeave}
+
+          {loginToken && (
+            <li className="relative">
+              {" "}
+              <button
+                className="flex items-center hover:text-gray-400 focus:outline-none"
+                onClick={() => toggleDropdown("donation")}
+                // onBlur={handleMouseLeave}
               >
-                <Link
-                  to="/project"
-                  className="block px-4 py-2 hover:bg-gray-600"
+                Donation
+                {openDropdown === "donation" ? (
+                  <ChevronUpIcon className="w-5 h-5 ml-1" />
+                ) : (
+                  <ChevronDownIcon className="w-5 h-5 ml-1" />
+                )}
+              </button>
+              {openDropdown === "donation" && (
+                <div
+                  className="absolute bg-gray-700 mt-2 rounded shadow-lg py-2 z-50"
+                  onMouseLeave={handleMouseLeave}
                 >
-                  Project
-                </Link>
-                <Link
-                  to="/scholarship"
-                  className="block px-4 py-2 hover:bg-gray-600"
-                >
-                  Scholarship
-                </Link>
-              </div>
-            )}
-          </li>
+                  <Link
+                    to="/project"
+                    className="block px-4 py-2 hover:bg-gray-600"
+                  >
+                    Project
+                  </Link>
+                  <Link
+                    to="/scholarship"
+                    className="block px-4 py-2 hover:bg-gray-600"
+                  >
+                    Scholarship
+                  </Link>
+                </div>
+              )}
+            </li>
+          )}
 
           {/* User Profile */}
           <li>
@@ -117,7 +121,7 @@ const Navbar = () => {
           <li>
             <button
               onClick={() => {
-                loginToken && navigate("/home");
+                loginToken && navigate("/");
                 loginToken && localStorage.removeItem("authToken");
                 !loginToken && navigate("/login");
               }}
