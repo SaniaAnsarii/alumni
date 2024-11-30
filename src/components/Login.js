@@ -68,18 +68,29 @@ const Login = () => {
             </h2>
 
             {/* User Type Dropdown */}
-            <select
-              id="userType"
-              className="w-full my-2 p-2 bg-white text-black rounded relative z-10"
-              defaultValue=""
-              required
-            >
-              <option value="" disabled hidden>
-                Select Sign Up As
-              </option>
-              <option value="alumni">Alumni</option>
-              <option value="student">Student</option>
-            </select>
+            <h6 className="text-left text-lg font-semibold my-2">Sign Up As :</h6>
+<div className="flex gap-2 items-start my-2">
+  <label className="flex items-center mb-2">
+    <input
+      type="radio"
+      name="userType"
+      value="alumni"
+      className="mr-2"
+      required
+    />
+    Alumni
+  </label>
+  <label className="flex items-center">
+    <input
+      type="radio"
+      name="userType"
+      value="student"
+      className="mr-2"
+      required
+    />
+    Student
+  </label>
+</div>
 
             {/* Sign-Up Specific Fields */}
             {isSignUpForm && (
@@ -108,7 +119,8 @@ const Login = () => {
                   className="w-full my-2 p-2 bg-white text-black rounded"
                   required
                 />
-                <div className="flex items-center justify-between my-2">
+                <div className="flex items-center gap-4 my-2">
+                  Gender : 
                   <label className="flex items-center">
                     <input
                       type="radio"
