@@ -1,46 +1,74 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "./Header"; // Keep this if needed, otherwise remove.
-import { checkValidData } from "../utils/validate"; // Keep this if validation is implemented.
+import Header from "./Header";
+import { checkValidData } from "../utils/validate";
+import axios from "axios";
 
 const Login = () => {
   const [isSignUpForm, setIsSignUpForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-
   const navigate = useNavigate();
 
-  // Validation references
-  const email = useRef(null);
-  const password = useRef(null);
+  // State for form fields
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [full_name, setFullName] = useState("");
+  const [department, setDepartment] = useState("");
+  const [user_type, setUserType] = useState(""); // Always present
+  const [batch, setBatch] = useState("");
 
   // Toggle between sign-in and sign-up forms
   const toggleSignIn = () => {
     setIsSignUpForm(!isSignUpForm);
+
+    // Clear fields specific to Sign-Up when switching
+    if (!isSignUpForm) {
+      setFullName("");
+      setDepartment("");
+      setBatch("");
+    }
   };
 
-  // Validation check on form submission
+  // Form submission logic
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (email.current && password.current) {
-      // Validate input fields
-      const message = checkValidData(
-        email.current.value,
-        password.current.value
-      );
-      setErrorMessage(message);
+    // Validate email and password
+    const message = checkValidData(email, password);
+    setErrorMessage(message);
 
-      // If validation passes, simulate token generation and storage
-      if (!message) {
-        const simulatedToken = "fake-token-12345"; // Simulated token
+    // Stop if validation fails
+    if (message) return;
 
-        // Store the token in localStorage
-        localStorage.setItem("authToken", simulatedToken);
+    const payload = {
+      email,
+      password,
+      user_type, // Always include userType in the payload
+    };
 
-        // Navigate to the home page
-        navigate("/");
-      }
+    if (isSignUpForm) {
+      // Add additional fields for Sign-Up
+      Object.assign(payload, { full_name, department, batch });
     }
+
+    const endpoint = isSignUpForm
+      ? "http://localhost:8008/api/auth/register"
+      : "http://localhost:8008/api/auth/login";
+
+    axios
+      .post(endpoint, payload)
+      .then((res) => {
+        if (res.status === 201) {
+          localStorage.setItem("token", res.data.token);
+          navigate("/");
+        } else {
+          alert(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        alert(`${isSignUpForm ? "Sign up" : "Sign in"} failed`);
+      });
   };
 
   return (
@@ -58,24 +86,23 @@ const Login = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-[#10171f] to-[#081b30] opacity-70"></div>
 
         {/* Main Content */}
-        <div className="absolute z-20 text-center w-full text-white transition-opacity duration-1000 opacity-100">
+        <div className="absolute text-center w-full text-white transition-opacity duration-1000 opacity-100">
           <form
             onSubmit={handleSubmit}
             className="w-3/12 mt-10 p-8 bg-[#ecdede78] backdrop-blur-sm bg-opacity-70 rounded-lg mx-auto"
           >
-            <h2 className="font-bold text-2xl mb-4">
-              {isSignUpForm ? "Sign Up" : "Sign In"}
-            </h2>
+            <h2 className="font-bold text-2xl mb-4">{isSignUpForm ? "Sign Up" : "Sign In"}</h2>
 
             {/* User Type Dropdown */}
             <select
               id="userType"
               className="w-full my-2 p-2 bg-white text-black rounded"
-              defaultValue=""
+              value={user_type}
+              onChange={(e) => setUserType(e.target.value)}
               required
             >
               <option value="" disabled hidden>
-                Select Sign Up As
+                {isSignUpForm ? "Select Sign Up As" : "Select Login Type"}
               </option>
               <option value="alumni">Alumni</option>
               <option value="student">Student</option>
@@ -88,18 +115,24 @@ const Login = () => {
                   type="text"
                   placeholder="Enter Your Full Name"
                   className="w-full my-2 p-2 bg-white text-black rounded"
+                  value={full_name}
+                  onChange={(e) => setFullName(e.target.value)}
                   required
                 />
                 <input
                   type="text"
                   placeholder="Enter your batch"
                   className="w-full my-2 p-2 bg-white text-black rounded"
+                  value={batch}
+                  onChange={(e) => setBatch(e.target.value)}
                   required
                 />
                 <input
                   type="text"
                   placeholder="Enter your department"
                   className="w-full my-2 p-2 bg-white text-black rounded"
+                  value={department}
+                  onChange={(e) => setDepartment(e.target.value)}
                   required
                 />
                 <input
@@ -108,8 +141,7 @@ const Login = () => {
                   className="w-full my-2 p-2 bg-white text-black rounded"
                   required
                 />
-                <div className="flex items-center gap-4 my-2">
-                  Gender :
+                <div className="flex items-center justify-between my-2">
                   <label className="flex items-center">
                     <input
                       type="radio"
@@ -136,17 +168,19 @@ const Login = () => {
 
             {/* Email and Password Fields */}
             <input
-              ref={email}
               type="email"
               placeholder="Email Address"
               className="p-2 my-2 w-full bg-white text-black rounded"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
             <input
-              ref={password}
               type="password"
               placeholder="Password"
               className="p-2 my-2 w-full bg-white text-black rounded"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
 

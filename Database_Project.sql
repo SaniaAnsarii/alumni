@@ -5,14 +5,12 @@ USE AlumniAssociatePlatform;
 
 -- 1. Users Table
 CREATE TABLE Users (
-    user_id INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     full_name VARCHAR(100) NOT NULL,
-    phone VARCHAR(15),
     user_type ENUM('alumni', 'student', 'admin') NOT NULL,
-    profile_picture VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    batch int(4) NOT NULL,
+    department VARCHAR(15) NOT NULL
 );
 
 -- 3. Departments Table
