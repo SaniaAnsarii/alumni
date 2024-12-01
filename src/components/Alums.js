@@ -14,7 +14,7 @@ const Alums = () => {
   return (
     <div>
       <Navbar />
-      <div className="p-8">
+      <div className="p-4 sm:p-6 md:p-8">
         {/* Search Bar */}
         <div className="mb-6 flex items-center relative">
           <input
@@ -41,7 +41,7 @@ const Alums = () => {
         </div>
 
         {/* Grid container */}
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredAlumni.length > 0 ? (
             filteredAlumni.map((alum, index) => (
               <div
@@ -67,7 +67,7 @@ const Alums = () => {
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-500 col-span-4">
+            <p className="text-center text-gray-500 col-span-full">
               No alumni found.
             </p>
           )}
