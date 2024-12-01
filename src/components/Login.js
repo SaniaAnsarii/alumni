@@ -86,7 +86,7 @@ const Login = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-[#10171f] to-[#081b30] opacity-70"></div>
 
         {/* Main Content */}
-        <div className="absolute text-center w-full text-white transition-opacity duration-1000 opacity-100">
+        <div className="absolute z-20 text-center w-full text-white transition-opacity duration-1000 opacity-100">
           <form
             onSubmit={handleSubmit}
             className="w-3/12 mt-10 p-8 bg-[#ecdede78] backdrop-blur-sm bg-opacity-70 rounded-lg mx-auto"
