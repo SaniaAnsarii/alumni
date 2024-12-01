@@ -6,7 +6,12 @@ require('dotenv').config();
 // Register User
 exports.registerUser = (req, res) => {
   const { email, password, full_name, user_type, batch, department } = req.body;
-
+  console.log(email);
+  console.log(password);
+  console.log(department);
+  console.log(full_name);
+  console.log(user_type);
+  console.log(batch);
   // Validate input
   if (!email || !password || !full_name || !user_type || !batch || !department) {
     return res.status(400).json({ message: 'All fields are required' });
@@ -96,7 +101,7 @@ exports.loginUser = (req, res) => {
         { expiresIn: '1h' }
       );
 
-      res.status(200).json({ message: 'Login successful', token });
+      res.status(201).json({ message: 'Login successful', token });
     });
   });
 };

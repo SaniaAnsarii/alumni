@@ -12,9 +12,9 @@ const Login = () => {
   // State for form fields
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [full_name, setFullName] = useState("");
   const [department, setDepartment] = useState("");
-  const [userType, setUserType] = useState(""); // Always present
+  const [user_type, setUserType] = useState(""); // Always present
   const [batch, setBatch] = useState("");
 
   // Toggle between sign-in and sign-up forms
@@ -43,12 +43,12 @@ const Login = () => {
     const payload = {
       email,
       password,
-      userType, // Always include userType in the payload
+      user_type, // Always include userType in the payload
     };
 
     if (isSignUpForm) {
       // Add additional fields for Sign-Up
-      Object.assign(payload, { fullName, department, batch });
+      Object.assign(payload, { full_name, department, batch });
     }
 
     const endpoint = isSignUpForm
@@ -97,7 +97,7 @@ const Login = () => {
             <select
               id="userType"
               className="w-full my-2 p-2 bg-white text-black rounded"
-              value={userType}
+              value={user_type}
               onChange={(e) => setUserType(e.target.value)}
               required
             >
@@ -115,7 +115,7 @@ const Login = () => {
                   type="text"
                   placeholder="Enter Your Full Name"
                   className="w-full my-2 p-2 bg-white text-black rounded"
-                  value={fullName}
+                  value={full_name}
                   onChange={(e) => setFullName(e.target.value)}
                   required
                 />
