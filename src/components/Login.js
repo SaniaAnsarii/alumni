@@ -1,75 +1,120 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
-import { checkValidData } from "../utils/validate";
 import axios from "axios";
 
 const Login = () => {
-  const [isSignUpForm, setIsSignUpForm] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [formData, setFormData] = useState({
+    isSignUpForm: true,
+    email: "",
+    password: "",
+    full_name: "",
+    department: "",
+    user_type: "",
+    batch: "",
+    gender: "",
+    errorMessage: null,
+  });
+
   const navigate = useNavigate();
 
-  // State for form fields
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [full_name, setFullName] = useState("");
-  const [department, setDepartment] = useState("");
-  const [user_type, setUserType] = useState(""); // Always present
-  const [batch, setBatch] = useState("");
+  let debounceTimer;
 
-  // Toggle between sign-in and sign-up forms
-  const toggleSignIn = () => {
-    setIsSignUpForm(!isSignUpForm);
-
-    // Clear fields specific to Sign-Up when switching
-    if (!isSignUpForm) {
-      setFullName("");
-      setDepartment("");
-      setBatch("");
+  const validateField = (field, value) => {
+    const currentYear = new Date().getFullYear();
+    switch (field) {
+      case "email":
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          return "Invalid email address";
+        }
+        break;
+      case "password":
+        if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/.test(value)) {
+          return "Password must contain at least 8 characters, one uppercase, one lowercase, one number, and one special character.";
+        }
+        break;
+      case "batch":
+        if (value < 1964 || value > currentYear) {
+          return "Batch number must be 4 digits between 1964 and the current year.";
+        }
+        break;
+      default:
+        break;
     }
+    return null;
   };
 
-  // Form submission logic
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+
+    clearTimeout(debounceTimer);
+
+    debounceTimer = setTimeout(() => {
+      const error = validateField(name, value);
+      setFormData((prevState) => ({
+        ...prevState,
+        errorMessage: error,
+      }));
+    }, 2000);
+  };
+
+  const toggleSignIn = () => {
+    setFormData((prevState) => ({
+      ...prevState,
+      isSignUpForm: !prevState.isSignUpForm,
+      full_name: "",
+      department: "",
+      batch: "",
+      gender: "",
+      errorMessage: null,
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate email and password
-    const message = checkValidData(email, password);
-    setErrorMessage(message);
+    const { email, password, user_type, isSignUpForm, full_name, department, batch, gender } = formData;
 
-    // Stop if validation fails
-    if (message) return;
+    if (!validateField("email", email) && !validateField("password", password)) {
+      const payload = {
+        email,
+        password,
+        user_type,
+        ...(isSignUpForm && { full_name, department, batch, gender }),
+      };
 
-    const payload = {
-      email,
-      password,
-      user_type, // Always include userType in the payload
-    };
+      const endpoint = isSignUpForm
+        ? "http://localhost:8008/api/auth/register"
+        : "http://localhost:8008/api/auth/login";
 
-    if (isSignUpForm) {
-      // Add additional fields for Sign-Up
-      Object.assign(payload, { full_name, department, batch });
+      axios
+        .post(endpoint, payload)
+        .then((res) => {
+          if (res.status === 201) {
+            localStorage.setItem("token", res.data.token);
+            navigate("/");
+          } else {
+            alert(res.data.message);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          alert(`${isSignUpForm ? "Sign up" : "Sign in"} failed`);
+        });
+    } else {
+      setFormData((prevState) => ({
+        ...prevState,
+        errorMessage: "Please correct the highlighted fields before submitting.",
+      }));
     }
-
-    const endpoint = isSignUpForm
-      ? "http://localhost:8008/api/auth/register"
-      : "http://localhost:8008/api/auth/login";
-
-    axios
-      .post(endpoint, payload)
-      .then((res) => {
-        if (res.status === 201) {
-          localStorage.setItem("token", res.data.token);
-          navigate("/");
-        } else {
-          alert(res.data.message);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        alert(`${isSignUpForm ? "Sign up" : "Sign in"} failed`);
-      });
   };
+
+  const { isSignUpForm, email, password, full_name, department, user_type, batch, gender, errorMessage } = formData;
 
   return (
     <div>
@@ -89,16 +134,16 @@ const Login = () => {
         <div className="absolute z-20 text-center w-full text-white transition-opacity duration-1000 opacity-100">
           <form
             onSubmit={handleSubmit}
-            className="w-3/12 mt-10 p-8 bg-[#ecdede78] backdrop-blur-sm bg-opacity-70 rounded-lg mx-auto"
+            className="w-11/12 sm:w-8/12 md:w-6/12 lg:w-4/12 xl:w-3/12 mt-10 p-6 sm:p-8 bg-[#ecdede78] backdrop-blur-sm bg-opacity-70 rounded-lg mx-auto"
           >
             <h2 className="font-bold text-2xl mb-4">{isSignUpForm ? "Sign Up" : "Sign In"}</h2>
 
             {/* User Type Dropdown */}
             <select
-              id="userType"
+              name="user_type"
               className="w-full my-2 p-2 bg-white text-black rounded"
               value={user_type}
-              onChange={(e) => setUserType(e.target.value)}
+              onChange={handleInputChange}
               required
             >
               <option value="" disabled hidden>
@@ -113,76 +158,83 @@ const Login = () => {
               <>
                 <input
                   type="text"
+                  name="full_name"
                   placeholder="Enter Your Full Name"
                   className="w-full my-2 p-2 bg-white text-black rounded"
                   value={full_name}
-                  onChange={(e) => setFullName(e.target.value)}
+                  onChange={handleInputChange}
                   required
                 />
                 <input
-                  type="text"
-                  placeholder="Enter your batch"
+                  type="number"
+                  name="batch"
+                  placeholder="Enter your batch (e.g., 2018)"
                   className="w-full my-2 p-2 bg-white text-black rounded"
                   value={batch}
-                  onChange={(e) => setBatch(e.target.value)}
+                  onChange={handleInputChange}
                   required
                 />
-                <input
-                  type="text"
-                  placeholder="Enter your department"
+                <select
+                  name="department"
                   className="w-full my-2 p-2 bg-white text-black rounded"
                   value={department}
-                  onChange={(e) => setDepartment(e.target.value)}
+                  onChange={handleInputChange}
                   required
-                />
-                <input
-                  type="date"
-                  placeholder="Date of Birth"
+                >
+                  <option value="" disabled hidden>
+                    Select Department
+                  </option>
+                  <option value="Computer Science">Computer Science</option>
+                  <option value="Electrical Engineering">Electrical Engineering</option>
+                  <option value="Mechanical Engineering">Mechanical Engineering</option>
+                  <option value="Civil Engineering">Civil Engineering</option>
+                  <option value="Information Technology">Information Technology</option>
+                  <option value="ET&T">ET&T</option>
+                  <option value="Mining Engineering">Mining Engineering</option>
+                </select>
+                <select
+                  name="gender"
                   className="w-full my-2 p-2 bg-white text-black rounded"
+                  value={gender}
+                  onChange={handleInputChange}
                   required
-                />
-                <div className="flex items-center justify-between my-2">
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="gender"
-                      value="male"
-                      className="mr-2"
-                      required
-                    />
-                    Male
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="gender"
-                      value="female"
-                      className="mr-2"
-                      required
-                    />
-                    Female
-                  </label>
-                </div>
+                >
+                  <option value="" disabled hidden>
+                    Select Gender
+                  </option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
               </>
             )}
 
             {/* Email and Password Fields */}
             <input
               type="email"
+              name="email"
               placeholder="Email Address"
               className="p-2 my-2 w-full bg-white text-black rounded"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleInputChange}
               required
             />
-            <input
-              type="password"
-              placeholder="Password"
-              className="p-2 my-2 w-full bg-white text-black rounded"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="relative">
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                className="p-2 my-2 w-full bg-white text-black rounded"
+                value={password}
+                onChange={handleInputChange}
+                required
+              />
+              <div
+                className="absolute top-4 right-2 cursor-pointer text-gray-600"
+                title="Password must contain at least 8 characters, one uppercase, one lowercase, one number, and one special character."
+              >
+                ℹ️
+              </div>
+            </div>
 
             {/* Error Message */}
             {errorMessage && (
