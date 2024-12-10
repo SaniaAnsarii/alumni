@@ -89,14 +89,14 @@ const Login = () => {
       };
 
       const endpoint = isSignUpForm
-        ? "http://localhost:8008/api/auth/register"
-        : "http://localhost:8008/api/auth/login";
+        ? "http://localhost:8000/api/auth/signup"
+        : "http://localhost:8000/api/auth/signin";
 
       axios
         .post(endpoint, payload)
         .then((res) => {
-          if (res.status === 201) {
-            localStorage.setItem("token", res.data.token);
+          if (res.status === 201 || res.status === 200) {
+            localStorage.setItem("authToken", res.data.token);
             navigate("/");
           } else {
             alert(res.data.message);

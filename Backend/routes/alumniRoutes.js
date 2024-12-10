@@ -1,8 +1,10 @@
-const express = require('express');
+import express from "express";
+import authMiddleware  from "../middleware/authMiddleware.js";
+
+import { pool } from "../config/db.js";
+
 const router = express.Router();
-const { getAlumniProfile } = require('../controllers/AlumniController');
-const { verifyToken } = require('../middleware/authMiddleware');
 
-router.get('/profile', verifyToken, getAlumniProfile);
 
-module.exports = router;
+
+export default router;

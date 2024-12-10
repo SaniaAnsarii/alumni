@@ -1,8 +1,8 @@
-const db = require('../config/db');
+import {pool} from "../config/db.js"
 
 // Get all events
-exports.getAllEvents = (req, res) => {
-  db.query('SELECT * FROM Events', (err, results) => {
+export const getAllEvents = (req, res) => {
+  pool.query('SELECT * FROM Events', (err, results) => {
     if (err) {
       res.status(500).json({ error: 'Database error' });
     } else {

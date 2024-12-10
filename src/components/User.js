@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import Navbar from "./Navbar";
+import axios from "axios";
 
 const User = () => {
   const [editMode, setEditMode] = useState(null);
@@ -27,6 +28,32 @@ const User = () => {
 
   const handleEdit = (type) => setEditMode(type);
   const closeEdit = () => setEditMode(null);
+
+  const getUserInfo = async () => {
+    const token = localStorage.getItem("authToken");
+    console.log(token,"tokentoken");
+    
+  
+    if (token) {
+      try {
+        const response = await axios.get("http://localhost:8000/api/user/info", {
+          headers: {
+            Authorization: `Bearer ${token}`, // Attach token to header
+          },
+        });
+  
+        console.log("User info retrieved:", response.data);
+        // Do something with the user info here
+      } catch (error) {
+        console.error("Failed to fetch user info:", error);
+        // alert("Failed to fetch user info. Please log in again.");
+      }
+    } else {
+      alert("You need to log in to view this page.");
+    }
+  };
+
+  getUserInfo();
 
   return (
     <div>
