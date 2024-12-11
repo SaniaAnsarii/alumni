@@ -33,7 +33,7 @@ app.use('/api/events', eventRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/auth', authRoutes);       // Authentication routes
-app.use('/api/alumni', alumniRoutes);   // Protected alumni routes
+// app.use('/api/alumni', alumniRoutes);   // Protected alumni routes
 
 
 // app.listen(PORT, () => {
@@ -41,7 +41,7 @@ app.use('/api/alumni', alumniRoutes);   // Protected alumni routes
 // });
 
 app.listen(8000, async() => {
-  console.log('Server running on port 3000');
+  console.log('Server running on port 8000');
   try {
     await checkConnection();
     await createAllTable();

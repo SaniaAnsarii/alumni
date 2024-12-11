@@ -36,7 +36,7 @@ const User = () => {
   
     if (token) {
       try {
-        const response = await axios.get("http://localhost:8000/api/user/info", {
+        const response = await axios.get("http://localhost:8000/api/alumni/user/info", {
           headers: {
             Authorization: `Bearer ${token}`, // Attach token to header
           },
