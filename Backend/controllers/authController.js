@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+
 const jwt = require('jsonwebtoken');
 const db = require('../config/db');
 require('dotenv').config();
@@ -105,3 +106,4 @@ exports.loginUser = (req, res) => {
     });
   });
 };
+

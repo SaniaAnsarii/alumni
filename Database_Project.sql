@@ -9,9 +9,10 @@ CREATE TABLE Users (
     password_hash VARCHAR(255) NOT NULL,
     full_name VARCHAR(100) NOT NULL,
     user_type ENUM('alumni', 'student', 'admin') NOT NULL,
-    batch int(4) NOT NULL,
+    batch INT(4) NOT NULL,
     department VARCHAR(15) NOT NULL
 );
+
 
 -- 3. Departments Table
 CREATE TABLE Departments (

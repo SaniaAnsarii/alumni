@@ -4,6 +4,8 @@ import jwt from 'jsonwebtoken';
 import { pool } from '../config/db.js';
 import authMiddleware from '../middleware/authMiddleware.js';
 
+
+
 const router = express.Router();
 
 // Helper function to generate JWT token
@@ -74,5 +76,7 @@ router.post('/signin', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+
 
 export default router;
