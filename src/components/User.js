@@ -80,10 +80,49 @@ const User = () => {
       reader.readAsDataURL(file);
     }
   };
+  const saveUserDetails = async () => {
+    const token = localStorage.getItem("authToken");
+  
+    if (token) {
+      try {
+        const userData = {
+          full_name: profile.name,
+          user_type: profile.role,
+          batch: profile.batch,
+          profilePhoto: profile.profilePhoto,
+          skills: skills,
+          email: info.email,
+          gender: info.gender,
+          instagram: connectHandles.instagram,
+          facebook: connectHandles.facebook,
+          linkedin: connectHandles.linkedin,
+          github: connectHandles.github,
+          education: education,
+          experience: experience,
+        };
+  
+        const response = await axios.post("http://localhost:8000/api/alumni/user/update", userData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        console.log("User details updated successfully", response.data);
+        // Optionally, you can show a success message or update UI
+      } catch (error) {
+        console.error("Error updating user details:", error);
+        // Optionally, show an error message
+      }
+    } else {
+      alert("You need to log in to save these details.");
+    }
+  };
+  
 
   const handleSave = () => {
     console.log("Saved user info:", userInfo);
     setEditMode(false);
+    saveUserDetails();
   };
 
   const addSkill = () => {
