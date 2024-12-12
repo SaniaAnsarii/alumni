@@ -29,7 +29,11 @@ const Login = () => {
         }
         break;
       case "password":
-        if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/.test(value)) {
+        if (
+          !/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/.test(
+            value
+          )
+        ) {
           return "Password must contain at least 8 characters, one uppercase, one lowercase, one number, and one special character.";
         }
         break;
@@ -78,9 +82,21 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { email, password, user_type, isSignUpForm, full_name, department, batch, gender } = formData;
+    const {
+      email,
+      password,
+      user_type,
+      isSignUpForm,
+      full_name,
+      department,
+      batch,
+      gender,
+    } = formData;
 
-    if (!validateField("email", email) && !validateField("password", password)) {
+    if (
+      !validateField("email", email) &&
+      !validateField("password", password)
+    ) {
       const payload = {
         email,
         password,
@@ -109,12 +125,23 @@ const Login = () => {
     } else {
       setFormData((prevState) => ({
         ...prevState,
-        errorMessage: "Please correct the highlighted fields before submitting.",
+        errorMessage:
+          "Please correct the highlighted fields before submitting.",
       }));
     }
   };
 
-  const { isSignUpForm, email, password, full_name, department, user_type, batch, gender, errorMessage } = formData;
+  const {
+    isSignUpForm,
+    email,
+    password,
+    full_name,
+    department,
+    user_type,
+    batch,
+    gender,
+    errorMessage,
+  } = formData;
 
   return (
     <div>
@@ -136,26 +163,28 @@ const Login = () => {
             onSubmit={handleSubmit}
             className="w-11/12 sm:w-8/12 md:w-6/12 lg:w-4/12 xl:w-3/12 mt-10 p-6 sm:p-8 bg-[#ecdede78] backdrop-blur-sm bg-opacity-70 rounded-lg mx-auto"
           >
-            <h2 className="font-bold text-2xl mb-4">{isSignUpForm ? "Sign Up" : "Sign In"}</h2>
+            <h2 className="font-bold text-2xl mb-4">
+              {isSignUpForm ? "Sign Up" : "Sign In"}
+            </h2>
 
             {/* User Type Dropdown */}
-            <select
-              name="user_type"
-              className="w-full my-2 p-2 bg-white text-black rounded"
-              value={user_type}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="" disabled hidden>
-                {isSignUpForm ? "Select Sign Up As" : "Select Login Type"}
-              </option>
-              <option value="alumni">Alumni</option>
-              <option value="student">Student</option>
-            </select>
 
             {/* Sign-Up Specific Fields */}
             {isSignUpForm && (
               <>
+                <select
+                  name="user_type"
+                  className="w-full my-2 p-2 bg-white text-black rounded"
+                  value={user_type}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="" disabled hidden>
+                    {isSignUpForm ? "Select Sign Up As" : "Select Login Type"}
+                  </option>
+                  <option value="alumni">Alumni</option>
+                  <option value="student">Student</option>
+                </select>
                 <input
                   type="text"
                   name="full_name"
@@ -185,10 +214,16 @@ const Login = () => {
                     Select Department
                   </option>
                   <option value="Computer Science">Computer Science</option>
-                  <option value="Electrical Engineering">Electrical Engineering</option>
-                  <option value="Mechanical Engineering">Mechanical Engineering</option>
+                  <option value="Electrical Engineering">
+                    Electrical Engineering
+                  </option>
+                  <option value="Mechanical Engineering">
+                    Mechanical Engineering
+                  </option>
                   <option value="Civil Engineering">Civil Engineering</option>
-                  <option value="Information Technology">Information Technology</option>
+                  <option value="Information Technology">
+                    Information Technology
+                  </option>
                   <option value="ET&T">ET&T</option>
                   <option value="Mining Engineering">Mining Engineering</option>
                 </select>
