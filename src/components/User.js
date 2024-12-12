@@ -467,6 +467,7 @@ const User = () => {
               onClick={() => handleEdit("experience")}
               className="mt-4 p-2 bg-gray-100 hover:bg-gray-200 rounded"
             >
+            <PencilIcon className="w-6 h-6 inline-block" />
               Edit
             </button>
           </div>
