@@ -68,6 +68,7 @@ const User = () => {
     }
   };
 
+
   useEffect(() => {
     getUserInfo();
   }, []);
@@ -94,9 +95,9 @@ const User = () => {
           email: userInfo.email,
           gender: userInfo.gender,
           instagram: userInfo.instagram,
-          facebook: userInfo.facebook,
-          linkedin: userInfo.linkedin,
-          github: userInfo.github,
+          facebook_url: userInfo.facebook,
+          linkedin_url: userInfo.linkedin,
+          github_url: userInfo.github,
           education: userInfo.education,
           experience: userInfo.experience,
         };
@@ -117,12 +118,87 @@ const User = () => {
       alert("You need to log in to save these details.");
     }
   };
+  const handleEditMode = async () => {
+    setEditMode(true);
+  
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      alert("You need to log in to edit the profile.");
+      return;
+    }
+  
+    try {
+      const userData = {
+        full_name: userInfo.name,
+        user_type: userInfo.role,
+        batch: userInfo.batch,
+        gender: userInfo.gender,
+        skills: userInfo.skills,
+        experience: userInfo.experience,
+        instagram: userInfo.connectHandles.instagram,
+        linkedin: userInfo.connectHandles.linkedin,
+        facebook: userInfo.connectHandles.facebook,
+        github: userInfo.connectHandles.github,
+      };
+  
+      const response = await axios.put(
+        "http://localhost:8000/api/alumni/user/update",
+        userData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      console.log("Profile updated successfully", response.data);
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+      alert("Failed to update the profile. Please try again.");
+    }
+  };
+  
   
 
-  const handleSave = () => {
+  const  handleSave = async() => {
     console.log("Saved user info:", userInfo);
     setEditMode(false);
     saveUserDetails();
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      alert("You need to log in to edit the profile.");
+      return;
+    }
+  
+    try {
+      const userData = {
+        full_name: userInfo.name,
+        user_type: userInfo.role,
+        batch: userInfo.batch,
+        gender: userInfo.gender,
+        skills: userInfo.skills,
+        experience: userInfo.experience,
+        instagram: userInfo.connectHandles.instagram,
+        linkedin: userInfo.connectHandles.linkedin,
+        facebook: userInfo.connectHandles.facebook,
+        github: userInfo.connectHandles.github,
+      };
+  
+      const response = await axios.put(
+        "http://localhost:8000/api/alumni/user/update",
+        userData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      console.log("Profile updated successfully", response.data);
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+      alert("Failed to update the profile. Please try again.");
+    }
   };
 
   const addSkill = () => {
@@ -324,6 +400,7 @@ const User = () => {
               <button onClick={() => setEditMode(true)} className="mt-4 p-2 bg-blue-500 text-white rounded">
                 Edit Profile
               </button>
+
             </div>
           )}
         </div>

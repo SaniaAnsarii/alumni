@@ -1,16 +1,23 @@
 import { pool } from "../config/db.js";
 
 const userTableQuery = `CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(100) NOT NULL UNIQUE, 
-    password VARCHAR(255) NOT NULL,
-    full_name VARCHAR(100) NOT NULL,
-    department VARCHAR(100),
-    batch INT,
-    gender VARCHAR(10),
-    user_type VARCHAR(50) NOT NULL, 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);`;
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(100) NOT NULL UNIQUE, 
+  password VARCHAR(255) NOT NULL,
+  full_name VARCHAR(100) NOT NULL,
+  department VARCHAR(100),
+  batch INT,
+  gender VARCHAR(10),
+  user_type VARCHAR(50) NOT NULL, 
+  skills TEXT, -- To store a list of skills (e.g., as JSON or comma-separated values)
+  experience TEXT, -- To store experience descriptions
+  instagram VARCHAR(255), -- Social media handles
+  linkedin VARCHAR(255),
+  github VARCHAR(255),
+  facebook VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+`;
 
 const postTableQuery = `CREATE TABLE IF NOT EXISTS posts (
 id INT AUTO_INCREMENT PRIMARY KEY,

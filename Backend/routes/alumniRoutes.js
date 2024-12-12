@@ -27,7 +27,15 @@ router.get('/user/info', authMiddleware, async (req, res) => {
     // Prepare the response
     const responseData = {
       ...user[0],
-      skills: user[0].skills ? user[0].skills.split(',') : [], // Assuming skills are stored as comma-separated values
+      skills: user[0].skills ? user[0].skills.split(',') : [],
+     
+      experience: user[0].experience ? user[0].experience.split(',') : [],
+     
+     instagram: user[0].instagram ? user[0].instagram : "",
+     linkedin: user[0].linkedin? user[0].linkedin : "",
+    github: user[0].github ? user[0].github : "",
+    facebook: user[0].facebook ? user[0].facebook : "",
+       // Assuming skills are stored as comma-separated values
     };
 
     res.status(200).json(responseData);
@@ -45,7 +53,7 @@ router.put('/user/update', authMiddleware, async (req, res) => {
     }
 
     // Get the fields to update from the request body
-    const { full_name, department, batch, gender, user_type, skills, experience, instagram_url, linkedin_url, facebook_url, github_url } = req.body;
+    const { full_name, department, batch, gender, user_type, skills, experience, instagram, linkedin, facebook, github } = req.body;
 
     // Build the SQL query to update user information
     const updates = [];
@@ -79,21 +87,21 @@ router.put('/user/update', authMiddleware, async (req, res) => {
       updates.push("experience = ?");
       values.push(experience);
     }
-    if (instagram_url) {
-      updates.push("instagram_url = ?");
-      values.push(instagram_url);
+    if (instagram) {
+      updates.push("instagram = ?");
+      values.push(instagram);
     }
-    if (linkedin_url) {
-      updates.push("linkedin_url = ?");
-      values.push(linkedin_url);
+    if (linkedin) {
+      updates.push("linkedin = ?");
+      values.push(linkedin);
     }
-    if (facebook_url) {
-      updates.push("facebook_url = ?");
-      values.push(facebook_url);
+    if (facebook) {
+      updates.push("facebook = ?");
+      values.push(facebook);
     }
-    if (github_url) {
-      updates.push("github_url = ?");
-      values.push(github_url);
+    if (github) {
+      updates.push("github = ?");
+      values.push(github);
     }
 
     // If no valid fields were provided to update, return a 400 error
