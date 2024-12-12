@@ -16,7 +16,6 @@ const generateToken = (user) => {
 
 // Sign-Up Route
 router.post('/signup', async (req, res) => {
-  console.log(req,"reqreqreqreqreq")
   const { email, password, full_name, department, batch, gender, user_type } = req.body;
 
   try {

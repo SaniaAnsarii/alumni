@@ -16,8 +16,7 @@ const userTableQuery = `CREATE TABLE IF NOT EXISTS users (
   github VARCHAR(255),
   facebook VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-`;
+);`;
 
 const postTableQuery = `CREATE TABLE IF NOT EXISTS posts (
 id INT AUTO_INCREMENT PRIMARY KEY,

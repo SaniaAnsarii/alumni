@@ -111,9 +111,17 @@ const Login = () => {
       axios
         .post(endpoint, payload)
         .then((res) => {
-          if (res.status === 201 || res.status === 200) {
+          if (res.status === 200) {
             localStorage.setItem("authToken", res.data.token);
             navigate("/");
+          }
+          if (res.status === 201) {
+            setFormData((prevState) => ({
+              ...prevState,
+              isSignUpForm: !prevState.isSignUpForm,
+              email: "",
+    password: "",
+            }));
           } else {
             alert(res.data.message);
           }

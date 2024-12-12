@@ -1,6 +1,5 @@
 import express from "express";
-import authMiddleware  from "../middleware/authMiddleware.js";
-
+import authMiddleware from "../middleware/authMiddleware.js";
 import { pool } from "../config/db.js";
 
 const router = express.Router();
@@ -14,7 +13,7 @@ router.get('/user/info', authMiddleware, async (req, res) => {
     }
 
     const [user] = await pool.execute(`
-      SELECT  email, full_name, department, batch, gender, user_type, skills, experience, instagram, linkedin, github, facebook
+      SELECT email, full_name, department, batch, gender, user_type, skills, experience, instagram, linkedin, github, facebook
       FROM users
       WHERE users.email = ?
     `, [userEmail]);
@@ -23,10 +22,11 @@ router.get('/user/info', authMiddleware, async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Prepare the response
+    // Prepare the response with JSON parsing
     const responseData = {
       ...user[0],
-    
+      skills: JSON.parse(user[0].skills),  // Parse skills JSON
+      experience: JSON.parse(user[0].experience)  // Parse experience JSON
     };
 
     res.status(200).json(responseData);
@@ -35,6 +35,7 @@ router.get('/user/info', authMiddleware, async (req, res) => {
     res.status(500).json({ message: 'Server error', error });
   }
 });
+
 router.put('/user/update', authMiddleware, async (req, res) => {
   try {
     const userEmail = req.user?.email;  // Use optional chaining to prevent undefined
@@ -71,12 +72,14 @@ router.put('/user/update', authMiddleware, async (req, res) => {
       values.push(user_type);
     }
     if (skills) {
+      // Store skills as JSON
       updates.push("skills = ?");
-      values.push(skills.join(',')); // Store skills as a comma-separated string
+      values.push(JSON.stringify(skills));  // Convert the skills array to a JSON string
     }
     if (experience) {
+      // Store experience as JSON
       updates.push("experience = ?");
-      values.push(experience);
+      values.push(JSON.stringify(experience));  // Convert the experience array to a JSON string
     }
     if (instagram) {
       updates.push("instagram = ?");
@@ -123,6 +126,5 @@ router.put('/user/update', authMiddleware, async (req, res) => {
     res.status(500).json({ message: 'Server error', error });
   }
 });
-
 
 export default router;
