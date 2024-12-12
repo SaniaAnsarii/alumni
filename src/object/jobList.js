@@ -73,7 +73,7 @@ const jobList = [
     },
     {
       companyName: "Adobe",
-      logoUrl: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Adobe-logo.png",
+      logoUrl: "https://imgs.search.brave.com/cjYc2Qd36upQdE2WBUWqPBeLO-U04LYGs9GUosFK9V8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy83/LzdiL0Fkb2JlX1N5/c3RlbXNfbG9nb19h/bmRfd29yZG1hcmsu/c3Zn",
       position: "UX Designer",
       location: "San Jose, USA",
       eligibilityCriteria: {
