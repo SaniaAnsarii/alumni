@@ -6,7 +6,6 @@ import { pool } from "../config/db.js";
 const router = express.Router();
 
 router.get('/user/info', authMiddleware, async (req, res) => {
-  console.log(req, res, "resresresresres");
   try {
     const userEmail = req.user?.email;  // Use optional chaining to prevent undefined
 
@@ -15,7 +14,7 @@ router.get('/user/info', authMiddleware, async (req, res) => {
     }
 
     const [user] = await pool.execute(`
-      SELECT  email, full_name, department, batch, gender, user_type
+      SELECT  email, full_name, department, batch, gender, user_type, skills, experience, instagram, linkedin, github, facebook
       FROM users
       WHERE users.email = ?
     `, [userEmail]);
@@ -27,15 +26,7 @@ router.get('/user/info', authMiddleware, async (req, res) => {
     // Prepare the response
     const responseData = {
       ...user[0],
-      skills: user[0].skills ? user[0].skills.split(',') : [],
-     
-      experience: user[0].experience ? user[0].experience.split(',') : [],
-     
-     instagram: user[0].instagram ? user[0].instagram : "",
-     linkedin: user[0].linkedin? user[0].linkedin : "",
-    github: user[0].github ? user[0].github : "",
-    facebook: user[0].facebook ? user[0].facebook : "",
-       // Assuming skills are stored as comma-separated values
+    
     };
 
     res.status(200).json(responseData);
