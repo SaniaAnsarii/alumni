@@ -38,21 +38,23 @@ const User = () => {
     if (token) {
       try {
         const response = await axios.get("http://localhost:8000/api/alumni/user/info", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
-
-        console.log(response, "response");
-
+  
+        const defaultFemalePhoto = "https://imgs.search.brave.com/1rihGtPC7TEfTW-XFP4-dVTkUPzU6SvWt2na5LgccIs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/aWNvbi1pY29ucy5j/b20vaWNvbnMyLzI2/NDMvUE5HLzUxMi9h/dmF0YXJfZmVtYWxl/X3dvbWFuX3BlcnNv/bl9wZW9wbGVfd2hp/dGVfdG9uZV9pY29u/XzE1OTM2MC5wbmc";
+        const defaultMalePhoto = "https://imgs.search.brave.com/PLJzUGKI7UUKudQeqSKaxXPRk77qRDTPDLJR_h9me4Y/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZy/ZWVwaWsuY29tLzI1/Ni82OTk3LzY5OTc2/NzYucG5nP3NlbXQ9/YWlzX2h5YnJpZA";
+  
+        const genderBasedPhoto =
+          response.data.gender === "Female" ? defaultFemalePhoto : defaultMalePhoto;
+  
         setUserInfo({
           name: response.data.full_name,
           role: response.data.user_type,
           batch: response.data.batch,
-          profilePhoto: response.data.profilePhoto || "https://via.placeholder.com/150",
+          profilePhoto: response.data.profilePhoto || genderBasedPhoto,
           email: response.data.email,
           gender: response.data.gender,
-          skills: Array.isArray(response.data.skills) ? response.data.skills : [], // Ensure skills is an array, even if empty
+          skills: Array.isArray(response.data.skills) ? response.data.skills : [],
           connectHandles: {
             instagram: response.data.instagram || "",
             facebook: response.data.facebook || "",
@@ -60,7 +62,7 @@ const User = () => {
             github: response.data.github || "",
           },
           education: response.data.education || "",
-          experience: Array.isArray(response.data.experience) ? response.data.experience : [],// Ensure experience is an array, even if empty
+          experience: Array.isArray(response.data.experience) ? response.data.experience : [],
         });
       } catch (error) {
         console.error("Failed to fetch user info:", error);
@@ -69,7 +71,7 @@ const User = () => {
       alert("You need to log in to view this page.");
     }
   };
-
+  
   useEffect(() => {
     getUserInfo();
   }, []);
@@ -259,42 +261,73 @@ const User = () => {
                 placeholder="Education"
               />
 
-              <h3 className="mt-4 text-lg font-semibold">Connect Handles</h3>
-              <input
-                type="url"
-                value={userInfo.connectHandles.instagram || ""}
-                onChange={(e) => setUserInfo({ ...userInfo, connectHandles: { ...userInfo.connectHandles, instagram: e.target.value } })}
-                className="mb-2 p-2 border rounded"
-                placeholder="Instagram"
-              />
-              <input
-                type="url"
-                value={userInfo.connectHandles.facebook || ""}
-                onChange={(e) => setUserInfo({ ...userInfo, connectHandles: { ...userInfo.connectHandles, facebook: e.target.value } })}
-                className="mb-2 p-2 border rounded"
-                placeholder="Facebook"
-              />
-              <input
-                type="url"
-                value={userInfo.connectHandles.linkedin || ""}
-                onChange={(e) => setUserInfo({ ...userInfo, connectHandles: { ...userInfo.connectHandles, linkedin: e.target.value } })}
-                className="mb-2 p-2 border rounded"
-                placeholder="LinkedIn"
-              />
-              <input
-                type="url"
-                value={userInfo.connectHandles.github || ""}
-                onChange={(e) => setUserInfo({ ...userInfo, connectHandles: { ...userInfo.connectHandles, github: e.target.value } })}
-                className="mb-2 p-2 border rounded"
-                placeholder="GitHub"
-              />
+<h3 className="mt-4 text-lg font-semibold">Connect Handles</h3>
+{/* Instagram */}
+<input
+  type="url"
+  value={userInfo.connectHandles.instagram || ""}
+  onChange={(e) => setUserInfo({ ...userInfo, connectHandles: { ...userInfo.connectHandles, instagram: e.target.value } })}
+  className="mb-2 p-2 border rounded"
+  placeholder="Instagram URL"
+/>
+{userInfo.connectHandles.instagram && (
+  <p className="text-blue-500">
+    <a href={userInfo.connectHandles.instagram} target="_blank" rel="noopener noreferrer">
+      {userInfo.connectHandles.instagram}
+    </a>
+  </p>
+)}
 
-              <button
-                onClick={handleSave}
-                className="mt-4 p-3 bg-green-500 text-white rounded"
-              >
-                Save Changes
-              </button>
+{/* Facebook */}
+<input
+  type="url"
+  value={userInfo.connectHandles.facebook || ""}
+  onChange={(e) => setUserInfo({ ...userInfo, connectHandles: { ...userInfo.connectHandles, facebook: e.target.value } })}
+  className="mb-2 p-2 border rounded"
+  placeholder="Facebook URL"
+/>
+{userInfo.connectHandles.facebook && (
+  <p className="text-blue-500">
+    <a href={userInfo.connectHandles.facebook} target="_blank" rel="noopener noreferrer">
+      {userInfo.connectHandles.facebook}
+    </a>
+  </p>
+)}
+
+{/* LinkedIn */}
+<input
+  type="url"
+  value={userInfo.connectHandles.linkedin || ""}
+  onChange={(e) => setUserInfo({ ...userInfo, connectHandles: { ...userInfo.connectHandles, linkedin: e.target.value } })}
+  className="mb-2 p-2 border rounded"
+  placeholder="LinkedIn URL"
+/>
+{userInfo.connectHandles.linkedin && (
+  <p className="text-blue-500">
+    <a href={userInfo.connectHandles.linkedin} target="_blank" rel="noopener noreferrer">
+      {userInfo.connectHandles.linkedin}
+    </a>
+  </p>
+)}
+
+{/* GitHub */}
+<input
+  type="url"
+  value={userInfo.connectHandles.github || ""}
+  onChange={(e) => setUserInfo({ ...userInfo, connectHandles: { ...userInfo.connectHandles, github: e.target.value } })}
+  className="mb-2 p-2 border rounded"
+  placeholder="GitHub URL"
+/>
+{userInfo.connectHandles.github && (
+  <p className="text-blue-500">
+    <a href={userInfo.connectHandles.github} target="_blank" rel="noopener noreferrer">
+      {userInfo.connectHandles.github}
+    </a>
+  </p>
+)}
+
+<button onClick={handleSave} className="mt-4 p-3 bg-green-500 text-white rounded">Save Changes</button>
+
             </div>
           ) : (
             <div>
@@ -331,13 +364,33 @@ const User = () => {
                 <p>No experience added yet.</p>
               )}
 
-              <h3 className="mt-4 text-lg font-semibold">Connect Handles</h3>
-              <div className="flex space-x-4">
-                <a href={userInfo.connectHandles.instagram} className="text-blue-500"><FaInstagram /></a>
-                <a href={userInfo.connectHandles.facebook} className="text-blue-500"><FaFacebook /></a>
-                <a href={userInfo.connectHandles.linkedin} className="text-blue-500"><FaLinkedin /></a>
-                <a href={userInfo.connectHandles.github} className="text-blue-500"><FaGithub /></a>
-              </div>
+<h3 className="mt-4 text-lg font-semibold">Connect Handles</h3>
+<div className="mt-2 space-y-3">
+  {/* Instagram */}
+  <a href={userInfo.connectHandles.instagram} className="flex items-center space-x-2 text-blue-500 hover:text-blue-700">
+    <FaInstagram className="h-6 w-6" />
+    <span>Instagram</span>
+  </a>
+
+  {/* Facebook */}
+  <a href={userInfo.connectHandles.facebook} className="flex items-center space-x-2 text-blue-500 hover:text-blue-700">
+    <FaFacebook className="h-6 w-6" />
+    <span>Facebook</span>
+  </a>
+
+  {/* LinkedIn */}
+  <a href={userInfo.connectHandles.linkedin} className="flex items-center space-x-2 text-blue-500 hover:text-blue-700">
+    <FaLinkedin className="h-6 w-6" />
+    <span>LinkedIn</span>
+  </a>
+
+  {/* GitHub */}
+  <a href={userInfo.connectHandles.github} className="flex items-center space-x-2 text-blue-500 hover:text-blue-700">
+    <FaGithub className="h-6 w-6" />
+    <span>GitHub</span>
+  </a>
+</div>
+
             </div>
           )}
         </div>
