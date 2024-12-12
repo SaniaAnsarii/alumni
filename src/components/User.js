@@ -86,19 +86,19 @@ const User = () => {
     if (token) {
       try {
         const userData = {
-          full_name: profile.name,
-          user_type: profile.role,
-          batch: profile.batch,
-          profilePhoto: profile.profilePhoto,
-          skills: skills,
-          email: info.email,
-          gender: info.gender,
-          instagram: connectHandles.instagram,
-          facebook: connectHandles.facebook,
-          linkedin: connectHandles.linkedin,
-          github: connectHandles.github,
-          education: education,
-          experience: experience,
+          full_name: userInfo.name,
+          user_type: userInfo.role,
+          batch: userInfo.batch,
+          profilePhoto: userInfo.profilePhoto,
+          skills: userInfo.skills,
+          email: userInfo.email,
+          gender: userInfo.gender,
+          instagram: userInfo.instagram,
+          facebook: userInfo.facebook,
+          linkedin: userInfo.linkedin,
+          github: userInfo.github,
+          education: userInfo.education,
+          experience: userInfo.experience,
         };
   
         const response = await axios.post("http://localhost:8000/api/alumni/user/update", userData, {
