@@ -4,7 +4,7 @@ import galleryList from '../object/galleryList'; // Adjust path as necessary
 
 const Gallery = () => {
   return (
-    <div>
+    <div className="bg-gray-200 min-h-screen">
       <Navbar />
       <div className="p-8">
         <h1 className="text-2xl font-bold mb-6 text-center">Gallery</h1>

@@ -89,12 +89,12 @@ const Navbar = () => {
                   className="absolute bg-gray-700 mt-2 rounded shadow-lg py-2 z-50"
                   onMouseLeave={handleMouseLeave}
                 >
-                  <Link
+                  {/* <Link
                     to="/project"
                     className="block px-4 py-2 hover:bg-gray-600"
                   >
                     Project
-                  </Link>
+                  </Link> */}
                   <Link
                     to="/scholarship"
                     className="block px-4 py-2 hover:bg-gray-600"

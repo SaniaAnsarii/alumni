@@ -24,7 +24,7 @@ const Alumni = () => {
   }
 
   return (
-    <div>
+    <div className="bg-gray-200 min-h-screen" >
       <Navbar />
       <div className="p-4 sm:p-6 md:p-8 max-w-5xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white shadow-lg rounded-lg p-6">

@@ -5,9 +5,9 @@ import '@radix-ui/themes/styles.css';
 // import Welcome from './components/Welcome';
 import Login from './components/Login';
 // import Achievements from './components/Achievements';
-import Directory from './components/Directory';
+// import Directory from './components/Directory';
 // import Success from './components/Success';
-import Feedback from './components/Feedback';
+// import Feedback from './components/Feedback';
 import Jobs from './components/Jobs';
 import Events from './components/Events';
 import Project from './components/Project';
@@ -38,10 +38,10 @@ const App = () => {
         />
         {/* <Route path="/" element={<Welcome />} /> */}
         <Route path="/login" element={<Login />} />
-        <Route path="/directory" element={<Directory />} />
+        {/* <Route path="/directory" element={<Directory />} /> */}
         {/* <Route path="/achievements" element={<Achievements />} /> */}
         {/* <Route path="/success" element={<Success />} /> */}
-        <Route path="/feedback" element={<Feedback />} />
+        {/* <Route path="/feedback" element={<Feedback />} /> */}
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/events" element={<Events />} />
         <Route path="/project" element={<Project />} />

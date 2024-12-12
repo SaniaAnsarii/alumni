@@ -12,7 +12,7 @@ const Alums = () => {
   );
 
   return (
-    <div>
+    <div className="bg-gray-200 min-h-screen">
       <Navbar />
       <div className="p-4 sm:p-6 md:p-8">
         {/* Search Bar */}

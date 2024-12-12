@@ -6,7 +6,7 @@ const Jobs = () => {
   return (
     <div>
       <Navbar />
-      <div className="bg-gray-100 py-10">
+      <div className="bg-gray-200 min-h-screen py-10">
         <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
           Job Openings
         </h1>
